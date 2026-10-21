@@ -7,3 +7,7 @@ Console.WriteLine("Hello Cohort");
 
 Student student = new Student("Sam", 28);
 student.Introduce();
+
+Console.WriteLine("Starting Programs for different modules");
+ModuleA.HelperA.Greet();
+ModuleB.HelperB.Greet();
