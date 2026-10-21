@@ -124,6 +124,75 @@ Console.WriteLine(defaultDiscountPrice);
 Console.WriteLine(customDiscountPrice);
 
 
+
+int numberInt = 10;
+long numberLong = numberInt; // Implicit conversion from int to long
+float numberFloat = numberLong;
+double numberDouble = numberFloat;
+
+Console.WriteLine($"Int: {numberInt}, Long: {numberLong}, Float: {numberFloat}, Double: {numberDouble}");
+
+double originalDouble = 10.5;
+int convertedInt = (int)originalDouble;
+Console.WriteLine($"Original Double: {originalDouble}, Converted Int: {convertedInt}");
+
+string input1 = "123";
+object value = input1;
+
+// is checks the runtime type
+if (value is string text)
+{
+    Console.WriteLine($"is: The value is a string: {text}");
+}
+
+// as does a reference-type conversion
+object anotherValue = input1;
+string? result = anotherValue as string;
+
+Console.WriteLine(
+    result is not null
+        ? $"as: Conversion succeeded: {result}"
+        : "as: Conversion failed.");
+
+// Convert.ToInt32()
+int convertedNumber = Convert.ToInt32(input);
+Console.WriteLine($"Convert.ToInt32: {convertedNumber}");
+
+// int.TryParse()
+if (int.TryParse(input, out int parsedNumber))
+{
+    Console.WriteLine($"TryParse: Successfully parsed {parsedNumber}");
+}
+else
+{
+    Console.WriteLine("TryParse: Input is not a valid integer.");
+}
+
+
+string invalidInput = "hello";
+
+// Convert.ToInt32 throws for non-numeric text.
+try
+{
+    int number = Convert.ToInt32(invalidInput);
+    Console.WriteLine(number);
+}
+catch (FormatException)
+{
+    Console.WriteLine("Convert.ToInt32: FormatException for 'hello'.");
+}
+
+// TryParse returns false instead of throwing for invalid text.
+if (int.TryParse(invalidInput, out int invalidNumber))
+{
+    Console.WriteLine(invalidNumber);
+}
+else
+{
+    Console.WriteLine("TryParse: Returned false for 'hello'.");
+}
+
+
 struct CoordinateStruct
 {
     public int X;
