@@ -71,6 +71,37 @@ copiedClass.X = 30;
 Console.WriteLine($"originalClass.X: {originalClass.X}, copiedClass.X: {copiedClass.X}");
 //classes are reference types.
 
+
+Console.WriteLine("Enter a number between 0-6 (days of the week): ");
+string? input = Console.ReadLine();
+if (int.TryParse(input, out int dayNumber) && Enum.IsDefined(typeof(DaysOfWeek), dayNumber))
+{
+    DaysOfWeek day = (DaysOfWeek)dayNumber;
+    Console.WriteLine($"You selected: {day}");
+
+}
+
+// the typeof(daysofweek) is used to get the type of the enum. The enum.isdefined method is used to check if the value is defined in the enum. The enum is casted to the enum type using (daysofweek)daynumber.
+else
+{
+    Console.WriteLine("Invalid input. Please enter a number between 0 and 6.");
+}
+
+FilePermission permissions = FilePermission.Read | FilePermission.Execute;
+//The Flags attribute tells .net that the enum is intended to represent combinations of bit flags. the | operator does the actual combination.
+
+Console.WriteLine($"Numeric value: {(int)permissions}");
+bool canRead = (permissions & FilePermission.Read) != 0;
+bool canWrite = (permissions & FilePermission.Write) != 0;
+bool canExecute = (permissions & FilePermission.Execute) != 0;
+
+Console.WriteLine($"Can read? {canRead}");
+Console.WriteLine($"Can write? {canWrite}");
+Console.WriteLine($"can execute? {canExecute}");
+
+
+
+
 struct CoordinateStruct
 {
     public int X;
@@ -94,3 +125,23 @@ class CoordinateClass
 }
 
 // int and structs copy values; arrays and classes copy references. That is why the integer and struct originals are unchanged.
+
+    
+enum DaysOfWeek
+{
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday
+}
+
+[Flags]
+enum FilePermission
+{
+    Read = 1,
+    Write = 2,
+    Execute = 4
+}
