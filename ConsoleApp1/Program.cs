@@ -100,6 +100,28 @@ Console.WriteLine($"Can write? {canWrite}");
 Console.WriteLine($"can execute? {canExecute}");
 
 
+static double ApplyDiscount(double price, double? discount)
+{
+    double discountPercentage = discount ?? 5.0;
+    double discountAmount = price * discountPercentage / 100;
+    return price - discountAmount;
+}
+
+
+int? age = 20;
+if (age.HasValue)
+{
+    Console.WriteLine($"Age: {age.Value}");
+}
+else
+{
+    Console.WriteLine("Age was not provided");
+}
+
+double defaultDiscountPrice = ApplyDiscount(1000, null);
+double customDiscountPrice = ApplyDiscount(1000, 10);
+Console.WriteLine(defaultDiscountPrice);
+Console.WriteLine(customDiscountPrice);
 
 
 struct CoordinateStruct
