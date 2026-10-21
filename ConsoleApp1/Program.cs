@@ -1,4 +1,13 @@
-﻿using SchoolManagement;
+﻿#define TRIAL_VERSION
+using System;
+using SchoolManagement;
+
+#if TRIAL_VERSION
+Console.WriteLine("This is a trial version");
+#else
+Console.WriteLine("This is a full version");
+#endif
+
 Console.WriteLine("Hello Cohort");
 
 //SchoolManagement.Student student = new SchoolManagement.Student("Sam", 28);
@@ -32,3 +41,4 @@ Console.WriteLine(examScore);
 Console.WriteLine(isEnrolled);
 Console.WriteLine(tuitionFee);
 Console.WriteLine(@class);
+
