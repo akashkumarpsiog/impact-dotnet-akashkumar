@@ -268,9 +268,76 @@ static (string Name, int Age, string Department) GetEmployee(int id)
     return ("Unknown", 0, "None");
 }
 
+//task 1.15
+// Pattern matching lets us make decisions based on what a value is, what range it falls into or what properties the object has.
+PrintValue(12);
+PrintValue("hello");
+PrintValue(2.1);
+PrintValue(null);
+PrintValue(true);
+
+Console.WriteLine($"Score >90: Grade {GetGrade(95)}");
+Console.WriteLine($"Score >80: Grade {GetGrade(82)}");
+Console.WriteLine($"Score >60: Grade {GetGrade(61)}");
+Console.WriteLine($"Score >40: Grade {GetGrade(45)}");
+Console.WriteLine($"Score >100: Grade {GetGrade(120)}");
 
 
+//This is for type pattern matching. It checks the type of the value and executes the corresponding branch.
+static void PrintValue(object? value1)
+{
+    switch (value1)
+    {
+        case int number:
+            Console.WriteLine($"Integer branch: {number}");
+            break;
+        case string text:
+            Console.WriteLine($"String branch: {text}");
+            break;
+        case double decimalNumber:
+            Console.WriteLine($"Double Branch: {decimalNumber}");
+            break;
+        case null:
+            Console.WriteLine("Null branch: no value");
+            break;
+        default:
+            Console.WriteLine($"Other type branch: {value1.GetType().Name}");
+            break;
+    }
+}
 
+// This is for relational pattern matching. It checks the value against specified ranges and executes the corresponding branch.
+static char GetGrade(int score)
+{
+    return score switch
+    {
+        < 0 or > 100 => 'X',
+        >= 90 => 'A',
+        >= 80 => 'B',
+        >= 70 => 'C',
+        >= 60 => 'D',
+        _ => 'F'
+    };
+}
+
+//property patterns with relational patterns.
+static void PrintDiscount(Order order)
+{
+    decimal discount = order switch
+    {// this is property pattern because the status and amount are properties of the object.
+        { Status: "Completed", Amount: >= 1000 } => 0.10m,
+        { Status: "Completed", Amount: >= 500 } => 0.05m,
+        { Status: "Pending" } => 0.00m,
+        _ => 0.00m
+    };
+    Console.WriteLine($"Status: {order.Status}, Amount: {order.Amount:C}, " + $"Discount: {discount:P0}");
+}
+
+class Order
+{
+    public string Status { get; set; } = "";
+    public decimal Amount { get; set; }
+}
 
 struct CoordinateStruct
 {
