@@ -193,6 +193,33 @@ else
 }
 
 
+
+// Part A: var reassignment — compile-time error
+//var number1 = 10;
+
+//we get compile error here because initually number1 is int and now we are assigning it to string.
+//number1 = "Hello";
+
+//Console.WriteLine($"var type: {number1.GetType().Name}");
+
+dynamic value1 = "hello";
+Console.WriteLine(value1.GetType().Name);
+
+value1 = 15;
+Console.WriteLine(value1.GetType().Name);
+
+value1 = true;
+Console.WriteLine(value1.GetType().Name);
+//This works because dynamic allows variable to reference values of different types.
+
+static dynamic Add(dynamic a, dynamic b)
+{
+    return a + b;
+}
+
+Console.WriteLine(Add(10, 20));
+Console.WriteLine(Add("Hello", "Akash"));
+
 struct CoordinateStruct
 {
     public int X;
