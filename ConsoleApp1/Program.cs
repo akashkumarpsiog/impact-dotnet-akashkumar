@@ -292,6 +292,38 @@ Student student2 = new Student(18);
 Console.WriteLine($"Year: {student2.Year}, Name: {student2.Name}, Age: {student2.Age}");
 student2.DiplaySchoolAddress("xyz school"); //shows const value that cant be changed and assigned during compile time
 
+//task 1.17
+Employee employee2 = new Employee(1, "Akash");
+employee2.Display();
+employee2.LogEmployee();
+
+RealAddress a1 = new RealAddress("xyz road", "Chennai", "60001");
+RealAddress a2 = new RealAddress("xyz road", "Chennai", "60001");
+
+Console.WriteLine(a1 == a2);
+
+RealAddress a3 = a1 with { City = "Coimbatore" }; //copying with with
+Console.WriteLine(a3 == a2);
+
+Playlist playlist = new();
+playlist.Add("Situations");
+playlist.Add("Entertainer");
+
+Console.WriteLine(playlist[0]);
+Console.WriteLine(playlist["situations"]);
+
+playlist[1] = "Waterfalls";
+Console.WriteLine(playlist[1]);
+
+try
+{
+    Console.WriteLine(playlist[10]);
+}
+catch (IndexOutOfRangeException)
+{
+    Console.WriteLine("Invalid index handled correctly");
+}
+
 //This is for type pattern matching. It checks the type of the value and executes the corresponding branch.
 static void PrintValue(object? value1)
 {
