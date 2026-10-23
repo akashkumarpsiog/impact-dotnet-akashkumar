@@ -283,6 +283,15 @@ Console.WriteLine($"Score >40: Grade {GetGrade(45)}");
 Console.WriteLine($"Score >100: Grade {GetGrade(120)}");
 
 
+//task 1.16
+Student student1 = new Student("2026");
+Console.WriteLine(student1.Year);
+//student1.Year = 2027 cant do this because readonly fields can only be assigned in the constructor or at the point of declaration. readonly fields cannot be changed after the object is constructed.
+
+Student student2 = new Student(18);
+Console.WriteLine($"Year: {student2.Year}, Name: {student2.Name}, Age: {student2.Age}");
+student2.DiplaySchoolAddress("xyz school"); //shows const value that cant be changed and assigned during compile time
+
 //This is for type pattern matching. It checks the type of the value and executes the corresponding branch.
 static void PrintValue(object? value1)
 {
