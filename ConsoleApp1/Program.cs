@@ -1,6 +1,9 @@
 ﻿#define TRIAL_VERSION
-using System;
+using ProductCatalog;
 using SchoolManagement;
+using System;
+using System.Linq;
+using TemperatureConverted;
 
 //task 1.8
 #if TRIAL_VERSION
@@ -324,6 +327,81 @@ catch (IndexOutOfRangeException)
     Console.WriteLine("Invalid index handled correctly");
 }
 
+//task mini q1
+List<Product> products = new()
+{
+    new Product("Laptop", 75000m, Category.Available),
+    new Product("Phone", 25000m, Category.OnSale),
+    new Product("Headphones", 3000m, Category.Available),
+    new Product("Monitor", 12000m, Category.OutOfStock),
+    new Product("Keyboard", 1500m, Category.OnSale)
+};
+
+foreach (var group in products.GroupBy(p => p.ProductCategory))
+{
+    Console.WriteLine($"\n{group.Key}");
+    foreach (Product product in group)
+    {
+        Console.WriteLine($"{product.Name} - ${product.Price:F2}");
+    }
+}
+
+//task mini q2
+Temperature converter = new Temperature();
+//celsius input (first method)
+var tempresult1 = converter.TempConverter(25);
+Console.WriteLine($"Fahrenheit: {tempresult1.Fahrenheit}, Kelvin: {tempresult1.Kelvin}");
+
+// specifying input unit
+var celsinputresult = converter.TempConverter(0, Temperature.Unit.Celsius);
+Console.WriteLine($"{celsinputresult.Temp1} {celsinputresult.Unit1} , {celsinputresult.Temp2} {celsinputresult.Unit2}");
+
+var kelvininputresult = converter.TempConverter(30, Temperature.Unit.Kelvin);
+Console.WriteLine($"{kelvininputresult.Temp1} {kelvininputresult.Unit1} , {kelvininputresult.Temp2} {kelvininputresult.Unit2}");
+
+var farinputresult = converter.TempConverter(0, Temperature.Unit.Fahrenheit);
+Console.WriteLine($"{farinputresult.Temp1} {farinputresult.Unit1} , {farinputresult.Temp2} {farinputresult.Unit2}");
+
+//task mini q3
+
+//ContactCard[] contacts = new ContactCard[5];
+//contacts[0] = new ContactCard { name = "akash", PhNo = 9344577588, email = "akash@gmail.com" };
+
+ContactCard[] contacts =
+{
+    new ContactCard { name = "Akash", PhNo = 9334445588, email = "akash@gmail.com" },
+    new ContactCard { name = "Sidharth", PhNo = 9876543210, email = "sidharth@gmail.com" },
+    new ContactCard { name = "Rahul", PhNo = 9125456780, email = "rahul@gmail.com" },
+    new ContactCard { name = "Meera", PhNo = 9188776655, email = "meera@gmail.com" },
+    new ContactCard { name = "Arun", PhNo = 9090909093, email = "arun@gmail.com" }
+};
+
+Console.WriteLine("enter name to search in contact card:");
+string searchName = Console.ReadLine() ?? "";
+bool found = false;
+
+foreach (ContactCard contact in contacts)
+{
+    if (string.Equals(contact.name, searchName, StringComparison.OrdinalIgnoreCase))
+    {
+        Console.WriteLine("Contact found!");
+        Console.WriteLine($"name: {contact.name}");
+        Console.WriteLine($"Phone: {contact.PhNo}");
+        Console.WriteLine($"Email: {contact.email}");
+        found = true;
+        break;
+    }
+
+    if (found)
+    {
+        Console.WriteLine("Contact not found");
+    }
+
+}
+
+
+
+
 //This is for type pattern matching. It checks the type of the value and executes the corresponding branch.
 static void PrintValue(object? value1)
 {
@@ -372,6 +450,13 @@ static void PrintDiscount(Order order)
         _ => 0.00m
     };
     Console.WriteLine($"Status: {order.Status}, Amount: {order.Amount:C}, " + $"Discount: {discount:P0}");
+}
+
+struct ContactCard
+{
+    public string name;
+    public long PhNo;
+    public string email;
 }
 
 class Order
