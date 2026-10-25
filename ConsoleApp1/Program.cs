@@ -4,6 +4,7 @@ using SchoolManagement;
 using System;
 using System.Linq;
 using TemperatureConverted;
+using ContactCardApp;
 
 //task 1.8
 #if TRIAL_VERSION
@@ -337,7 +338,7 @@ List<Product> products = new()
     new Product("Keyboard", 1500m, Category.OnSale)
 };
 
-foreach (var group in products.GroupBy(p => p.ProductCategory))
+foreach (var group in ProductCatalogService.GroupByCategory(products))
 {
     Console.WriteLine($"\n{group.Key}");
     foreach (Product product in group)
@@ -378,25 +379,22 @@ ContactCard[] contacts =
 
 Console.WriteLine("enter name to search in contact card:");
 string searchName = Console.ReadLine() ?? "";
-bool found = false;
 
-foreach (ContactCard contact in contacts)
+ContactCard? result3 =
+    ContactSearchService.FindContact(contacts, searchName);
+
+if (result3.HasValue)
 {
-    if (string.Equals(contact.name, searchName, StringComparison.OrdinalIgnoreCase))
-    {
-        Console.WriteLine("Contact found!");
-        Console.WriteLine($"name: {contact.name}");
-        Console.WriteLine($"Phone: {contact.PhNo}");
-        Console.WriteLine($"Email: {contact.email}");
-        found = true;
-        break;
-    }
+    ContactCard contact = result3.Value;
 
-    if (found)
-    {
-        Console.WriteLine("Contact not found");
-    }
-
+    Console.WriteLine("Contact found!");
+    Console.WriteLine($"Name: {contact.name}");
+    Console.WriteLine($"Phone: {contact.PhNo}");
+    Console.WriteLine($"Email: {contact.email}");
+}
+else
+{
+    Console.WriteLine("Contact not found");
 }
 
 
@@ -450,13 +448,6 @@ static void PrintDiscount(Order order)
         _ => 0.00m
     };
     Console.WriteLine($"Status: {order.Status}, Amount: {order.Amount:C}, " + $"Discount: {discount:P0}");
-}
-
-struct ContactCard
-{
-    public string name;
-    public long PhNo;
-    public string email;
 }
 
 class Order
